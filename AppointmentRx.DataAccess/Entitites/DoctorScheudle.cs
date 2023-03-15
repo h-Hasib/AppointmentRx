@@ -19,5 +19,7 @@ namespace AppointmentRx.DataAccess.Entitites
         public bool Tuesday { get; set; }
         public bool Wednesday { get; set; }
         public bool Thursday { get; set; }
+
+        public DoctorChamber Chamber;
     }
 }

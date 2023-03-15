@@ -35,8 +35,15 @@ namespace AppointmentRx.DataAccess.Entitites
         [ForeignKey("ChamberId")]
         public int ChamberId { get; set; }
         public DoctorChamber Chamber;
-        public ICollection<DoctorAppointment> Appointments;
-        public DoctorAddress DoctorAddress;
+
+        [ForeignKey("AddressId")]
+        public DoctorAddress Address;
+
+
+        public ICollection<DoctorAppointment> Appointment;
+
+        public ICollection<DoctorFavorite> Favorite;
+
 
 
     }

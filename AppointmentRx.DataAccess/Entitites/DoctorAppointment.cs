@@ -14,7 +14,8 @@ namespace AppointmentRx.DataAccess.Entitites
         public string ScheduleTime { get; set; }
         public int SerialNumber { get; set; }
         public int Cost { get; set; }
-        public ICollection<DoctorProfile> Profile { get; set; }
+
+        public ICollection<DoctorProfile> Profile;
 
     }
 }

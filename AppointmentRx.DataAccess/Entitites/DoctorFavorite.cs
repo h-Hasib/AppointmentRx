@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace AppointmentRx.DataAccess.Entitites
 {
-    internal class FavoriteDoctor
+    internal class DoctorFavorite
     {
         [Key]
         public Guid FavoriteId { get; set; }
@@ -15,7 +15,5 @@ namespace AppointmentRx.DataAccess.Entitites
         public int PatientId { get; set; }
 
         public ICollection<DoctorProfile> Profile;
-
-
     }
 }

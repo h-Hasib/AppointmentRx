@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,5 +17,10 @@ namespace AppointmentRx.DataAccess.Entitites
         public string Division { get; set; }
         public string Area { get; set; }
         public string RoadNo { get; set; }
+
+        public DoctorProfile Profile;
+
+        [ForeignKey("ChamberId")]
+        public DoctorChamber Chamber;
     }
 }
