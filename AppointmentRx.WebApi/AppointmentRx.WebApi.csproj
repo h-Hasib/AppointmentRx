@@ -30,11 +30,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\Doctor\" />
     <Folder Include="Controllers\Patient\" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\AppointmentRx.DataAccess\AppointmentRx.DataAccess.csproj" />
     <ProjectReference Include="..\AppointmentRx.Models\AppointmentRx.Models.csproj" />
   </ItemGroup>
 

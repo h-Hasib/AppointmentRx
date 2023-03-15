@@ -7,12 +7,13 @@ using System.Threading.Tasks;
 
 namespace AppointmentRx.DataAccess.Entitites
 {
-    internal class DoctorFavorite
+    public class DoctorFavorite
     {
         [Key]
         public Guid FavoriteId { get; set; }
         public int DoctorId { get; set; }
         public int PatientId { get; set; }
+
 
         public ICollection<DoctorProfile> Profile;
     }

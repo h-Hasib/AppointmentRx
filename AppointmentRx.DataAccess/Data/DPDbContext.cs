@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace AppointmentRx.DataAccess.Data
 {
-    internal class DPDbContext : IdentityDbContext<IdentityUser>
+    public class DPDbContext : IdentityDbContext<IdentityUser>
     {
         public DPDbContext(DbContextOptions<DPDbContext> options):base(options)
         {
@@ -29,50 +29,52 @@ namespace AppointmentRx.DataAccess.Data
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<DoctorProfile>()
-                .HasOne(dc => dc.Chamber)
-                .WithMany(dp => dp.Profile)
-                .HasForeignKey(f => f.ChamberId);
-
-            modelBuilder.Entity<DoctorProfile>()
-                .HasOne(da => da.Address)
-                .WithOne(dp => dp.Profile);
-
-            modelBuilder.Entity<DoctorProfile>()
-                .HasMany(dapp => dapp.Appointment)
-                .WithMany(dp => dp.Profile);
-
-            modelBuilder.Entity<DoctorProfile>()
-                .HasMany(df => df.Favorite)
-                .WithMany(dp => dp.Profile);
-
-            modelBuilder.Entity<DoctorAddress>()
-                .HasOne(dp => dp.Profile)
-                .WithOne(da => da.Address);
-
-            modelBuilder.Entity<DoctorAddress>()
-                .HasOne(dp => dp.Chamber)
-                .WithOne(da => da.Address);
-
             modelBuilder.Entity<DoctorChamber>()
-                .HasMany(dp => dp.Profile)
-                .WithOne(dp => dp.Chamber);
+                .HasOne(dp => dp.Profile)
+                .WithMany(dc => dc.Chamber)
+                .HasForeignKey(dpi => dpi.ProfileId);
+
+            modelBuilder.Entity<DoctorProfile>()
+                .HasMany(dp => dp.Chamber)
+                .WithOne(dc => dc.Profile);
 
             modelBuilder.Entity<DoctorChamber>()
                 .HasOne(da => da.Address)
                 .WithOne(dc => dc.Chamber);
+
+            modelBuilder.Entity<DoctorAddress>()
+                .HasOne(dc => dc.Chamber)
+                .WithOne(ds => ds.Address);
 
             modelBuilder.Entity<DoctorChamber>()
                 .HasOne(ds => ds.Scheudle)
                 .WithOne(dc => dc.Chamber);
 
-            modelBuilder.Entity<DoctorAppointment>()
-                .HasMany(dp => dp.Profile)
-                .WithMany(dapp => dapp.Appointment);
+            modelBuilder.Entity<DoctorScheudle>()
+                .HasOne(dc => dc.Chamber)
+                .WithOne(ds => ds.Scheudle);
+
+           modelBuilder.Entity<DoctorAppointment>()
+                .HasOne(dp=>dp.Profile)
+                .WithMany(da=>da.Appointment)
+                .HasForeignKey(f=>f.ProfileId);
+
+            modelBuilder.Entity<DoctorProfile>()
+                .HasMany(da => da.Appointment)
+                .WithOne(dp => dp.Profile);
+
+            modelBuilder.Entity<DoctorProfile>()
+                .HasOne(df => df.Favorite)
+                .WithMany(dp => dp.Profile)
+                .HasForeignKey(f => f.FavoriteId);
 
             modelBuilder.Entity<DoctorFavorite>()
-                .HasMany(dp => dp.Profile)
-                .WithMany(df => df.Favorite);
+                .HasMany(dp=>dp.Profile)
+                .WithOne(df=>df.Favorite);
+
+            modelBuilder.Entity<DoctorProfile>()
+                .HasOne(u => u.Login)
+                .WithOne(k => k.Profile);
 
 
 

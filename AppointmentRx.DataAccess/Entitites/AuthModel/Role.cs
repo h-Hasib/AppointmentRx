@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AppointmentRx.DataAccess.Entitites.AuthModel
 {
-    internal class Role
+    public class Role
     {
         public const string Doctor = "Doctor";
         public const string Patient = "Patient";

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace AppointmentRx.DataAccess.Entitites
 {
-    internal class DoctorScheudle
+    public class DoctorScheudle
     {
         [Key]
         public int ScheudleId { get; set; }

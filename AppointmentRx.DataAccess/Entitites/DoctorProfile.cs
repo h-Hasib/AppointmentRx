@@ -1,4 +1,6 @@
-﻿using System;
+﻿using AppointmentRx.DataAccess.Entitites.AuthModel;
+using AppointmentRx.DataAccess.Repositories.DoctorAppointment;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -8,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace AppointmentRx.DataAccess.Entitites
 {
-    internal class DoctorProfile
+    public class DoctorProfile
     {
         [Key]
         public Guid ProfileId { get; set; }
@@ -21,6 +23,7 @@ namespace AppointmentRx.DataAccess.Entitites
         public string Occupation { get; set; }
 
         public string Designation { get; set; }
+        public string Department { get; set; }
 
         public int BMDCNo { get; set; }
 
@@ -32,17 +35,21 @@ namespace AppointmentRx.DataAccess.Entitites
 
         public DateTime DOB { get; set; }
 
+
+        [ForeignKey("UserId")]
+        public Login Login;
+
         [ForeignKey("ChamberId")]
         public int ChamberId { get; set; }
-        public DoctorChamber Chamber;
+        public ICollection<DoctorChamber> Chamber;
 
-        [ForeignKey("AddressId")]
-        public DoctorAddress Address;
-
-
+        [ForeignKey("AppointmentId")]
+        public int AppointmentId { get; set; }
         public ICollection<DoctorAppointment> Appointment;
 
-        public ICollection<DoctorFavorite> Favorite;
+        [ForeignKey("FavoriteId")]
+        public int FavoriteId { get; set; }
+        public DoctorFavorite Favorite;
 
 
 

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace AppointmentRx.DataAccess.Entitites
 {
-    internal class DoctorAddress
+    public class DoctorAddress
     {
         [Key]
         public Guid AddressId { get; set; }
@@ -18,7 +18,6 @@ namespace AppointmentRx.DataAccess.Entitites
         public string Area { get; set; }
         public string RoadNo { get; set; }
 
-        public DoctorProfile Profile;
 
         [ForeignKey("ChamberId")]
         public DoctorChamber Chamber;

@@ -8,20 +8,23 @@ using System.Threading.Tasks;
 
 namespace AppointmentRx.DataAccess.Entitites
 {
-    internal class DoctorChamber
+    public class DoctorChamber
     {
         [Key] 
         public Guid ChamberId { get; set; }
         public string Schedule {get; set;}
         public int Fees { get; set;}
 
-        public ICollection<DoctorProfile> Profile;
+        [ForeignKey("ProfileId")]
+        public int ProfileId { get; set;}
+        public DoctorProfile Profile;
 
-        [ForeignKey("AddressId")]
-        public int AddressId { get; set; }
+/*        [ForeignKey("AddressId")]
+        public int AddressId { get; set; }*/
         public DoctorAddress Address;
 
-        [ForeignKey("ScheudleId")]
+/*        [ForeignKey("ScheudleId")]
+        public int ScheudleId { get; set; }*/
         public DoctorScheudle Scheudle;
     }
 }

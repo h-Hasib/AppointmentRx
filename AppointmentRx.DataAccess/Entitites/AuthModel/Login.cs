@@ -7,12 +7,17 @@ using System.Threading.Tasks;
 
 namespace AppointmentRx.DataAccess.Entitites.AuthModel
 {
-    internal class Login
+    public class Login
     {
+        [Key]
+        public Guid UserId { get; set; }
+
         [Required(ErrorMessage = "User Name is required")]
         public string Username { get; set; }
 
         [Required(ErrorMessage = "Password is required")]
         public string Password { get; set; }
+
+        public DoctorProfile Profile;
     }
 }

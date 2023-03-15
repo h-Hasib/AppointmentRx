@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace AppointmentRx.DataAccess.Entitites.AuthModel
 {
-    internal class Registration
+    public class Registration
     {
         [Required(ErrorMessage = "User Name is required")]
         public string Username { get; set; }
