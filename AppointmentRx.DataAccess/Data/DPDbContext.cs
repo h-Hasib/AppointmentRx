@@ -1,4 +1,5 @@
 ﻿using AppointmentRx.DataAccess.Entitites;
+using AppointmentRx.DataAccess.Entitites.AuthModel;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -13,9 +14,9 @@ namespace AppointmentRx.DataAccess.Data
 {
     public class DPDbContext : IdentityDbContext<IdentityUser>
     {
-        public DPDbContext(DbContextOptions<DPDbContext> options):base(options)
+        public DPDbContext(DbContextOptions<DPDbContext> options) : base(options)
         {
-            
+
         }
 
         DbSet<DoctorProfile> Profile { get; set; }
@@ -54,10 +55,10 @@ namespace AppointmentRx.DataAccess.Data
                 .HasOne(dc => dc.Chamber)
                 .WithOne(ds => ds.Scheudle);
 
-           modelBuilder.Entity<DoctorAppointment>()
-                .HasOne(dp=>dp.Profile)
-                .WithMany(da=>da.Appointment)
-                .HasForeignKey(f=>f.ProfileId);
+            modelBuilder.Entity<DoctorAppointment>()
+                 .HasOne(dp => dp.Profile)
+                 .WithMany(da => da.Appointment)
+                 .HasForeignKey(f => f.ProfileId);
 
             modelBuilder.Entity<DoctorProfile>()
                 .HasMany(da => da.Appointment)
@@ -69,18 +70,28 @@ namespace AppointmentRx.DataAccess.Data
                 .HasForeignKey(f => f.FavoriteId);
 
             modelBuilder.Entity<DoctorFavorite>()
-                .HasMany(dp=>dp.Profile)
-                .WithOne(df=>df.Favorite);
+                .HasMany(dp => dp.Profile)
+                .WithOne(df => df.Favorite);
 
             modelBuilder.Entity<DoctorProfile>()
                 .HasOne(u => u.Login)
                 .WithOne(k => k.Profile);
 
+            modelBuilder.Entity<Registration>()
+.HasOne(b => b.Login)
+.WithOne(i => i.Registration)
+.HasForeignKey<Login>(b => b.RId);
+
+
+            modelBuilder.Entity<Login>()
+            .HasOne(b => b.Registration)
+            .WithOne(i => i.Login)
+            .HasForeignKey<Registration>(b => b.LId);
 
 
 
 
         }
 
-        }
+    }
 }

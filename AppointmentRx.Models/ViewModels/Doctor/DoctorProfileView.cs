@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AppointmentRx.DataAccess.Repositories.Doctor.DoctorProfile
+namespace AppointmentRx.Models.ViewModels.Doctor
 {
-    public interface IDoctorProfile
+    public class DoctorProfileView
     {
 
     }

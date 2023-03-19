@@ -1,5 +1,4 @@
 ﻿using AppointmentRx.DataAccess.Entitites.AuthModel;
-using AppointmentRx.DataAccess.Repositories.DoctorAppointment;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -36,7 +35,7 @@ namespace AppointmentRx.DataAccess.Entitites
         public DateTime DOB { get; set; }
 
 
-        [ForeignKey("UserId")]
+        /*[ForeignKey("UserId")]*/
         public Login Login;
 
         [ForeignKey("ChamberId")]

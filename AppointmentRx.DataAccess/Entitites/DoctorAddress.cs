@@ -19,7 +19,7 @@ namespace AppointmentRx.DataAccess.Entitites
         public string RoadNo { get; set; }
 
 
-        [ForeignKey("ChamberId")]
+        /*[ForeignKey("ChamberId")]*/
         public DoctorChamber Chamber;
     }
 }
