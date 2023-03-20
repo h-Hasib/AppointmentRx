@@ -13,14 +13,14 @@ namespace AppointmentRx.DataAccess.Entitites
         public int RoleId { get; set; }
         public string CountryCode { get; set; }
         public string ContactNo { get; set; }
-        public string? Email { get; set; }
+        public string Email { get; set; }
 
-        public bool? IsActive { get; set; }
-        public DateTime? CreatedAt { get; set; }
-        public int? Otp { get; set; }
-        public DateTime? OtpExpiryAt { get; set; }
-        public bool? IsVerified { get; set; }
-        public string? RefreshToken { get; set; }
-        public DateTime? RefreshTokenExpiresAt { get; set; }
+        public bool IsActive { get; set; }
+        public DateTime CreatedAt { get; set; }
+        public int Otp { get; set; }
+        public DateTime OtpExpiryAt { get; set; }
+        public bool IsVerified { get; set; }
+        public string RefreshToken { get; set; }
+        public DateTime RefreshTokenExpiresAt { get; set; }
     }
 }
