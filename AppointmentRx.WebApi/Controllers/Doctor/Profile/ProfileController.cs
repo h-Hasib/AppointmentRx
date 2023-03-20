@@ -7,5 +7,6 @@ namespace AppointmentRx.WebApi.Controllers.Doctor.Profile
     [ApiController]
     public class ProfileController : ControllerBase
     {
+
     }
 }
