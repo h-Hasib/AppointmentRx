@@ -3,15 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.3.32922.545
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppointmentRx.WebApi", "AppointmentRx.WebApi\AppointmentRx.WebApi.csproj", "{341D8781-69AA-4E47-B587-1ABC397F2E1D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AppointmentRx.WebApi", "AppointmentRx.WebApi\AppointmentRx.WebApi.csproj", "{341D8781-69AA-4E47-B587-1ABC397F2E1D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppointmentRx.BusinessDomain", "AppointmentRx.BusinessDomain\AppointmentRx.BusinessDomain.csproj", "{EB68B0A7-3B7A-4AEB-AD40-9C63737EABAE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AppointmentRx.BusinessDomain", "AppointmentRx.BusinessDomain\AppointmentRx.BusinessDomain.csproj", "{EB68B0A7-3B7A-4AEB-AD40-9C63737EABAE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppointmentRx.DataAccess", "AppointmentRx.DataAccess\AppointmentRx.DataAccess.csproj", "{F461D7DA-506D-4098-B1D3-72FBBE893ED1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AppointmentRx.DataAccess", "AppointmentRx.DataAccess\AppointmentRx.DataAccess.csproj", "{F461D7DA-506D-4098-B1D3-72FBBE893ED1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppointmentRx.Models", "AppointmentRx.Models\AppointmentRx.Models.csproj", "{AD11F7ED-9582-40AE-B751-E4E5C8404792}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AppointmentRx.Models", "AppointmentRx.Models\AppointmentRx.Models.csproj", "{AD11F7ED-9582-40AE-B751-E4E5C8404792}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppointmentRx.Services", "AppointmentRx.Services\AppointmentRx.Services.csproj", "{965A3BCE-6B31-4E06-BC47-D9DB72F9208D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AppointmentRx.Services", "AppointmentRx.Services\AppointmentRx.Services.csproj", "{965A3BCE-6B31-4E06-BC47-D9DB72F9208D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppointmentRx.Framework", "AppointmentRx.Framework\AppointmentRx.Framework.csproj", "{4788721B-6515-4B91-A535-31650BB294DD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{965A3BCE-6B31-4E06-BC47-D9DB72F9208D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{965A3BCE-6B31-4E06-BC47-D9DB72F9208D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{965A3BCE-6B31-4E06-BC47-D9DB72F9208D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4788721B-6515-4B91-A535-31650BB294DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4788721B-6515-4B91-A535-31650BB294DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4788721B-6515-4B91-A535-31650BB294DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4788721B-6515-4B91-A535-31650BB294DD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
