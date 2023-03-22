@@ -1,5 +1,6 @@
 ﻿
 using AppointmentRx.DataAccess.Entitites;
+using AppointmentRx.DataAccess.Repositories.Doctor.Profile;
 using AppointmentRx.DataAccess.Repositories.Patient.Profile;
 using AppointmentRx.Framework;
 using AppointmentRx.Models.Validators.CustomErrorConfiguration;
@@ -47,10 +48,12 @@ namespace AppointmentRx.WebApi.DependencyInjection
             services.AddScoped<ITokenService, TokenService>();
             //Repository
             services.AddTransient<IPatientProfileRepository, PatientProfileRepository>();
+            services.AddTransient<IDoctorProfileRepository, DoctorProfileRepository>();
             //Business
 
             //Fluent Validation Custom Error Model Interceptor
             services.AddTransient<IValidatorInterceptor, CustomErrorModelInterceptor>();
+
         }
     }
 }

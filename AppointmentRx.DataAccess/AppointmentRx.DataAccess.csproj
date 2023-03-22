@@ -39,8 +39,4 @@
     <ProjectReference Include="..\AppointmentRx.Models\AppointmentRx.Models.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Repositories\Doctor\Profile\" />
-  </ItemGroup>
-
 </Project>
