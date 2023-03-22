@@ -12,13 +12,13 @@ namespace AppointmentRx.WebApi.Controllers.Patient.Auth
 {
     [Route("patient/auth")]
     [ApiController]
-    public class AccountCommandController : BaseController
+    public class AccountController : BaseController
     {
         private readonly UserManager<PortalUser> _userManager;
         private readonly ICommonService _commonService;
         private readonly IPatientProfileRepository _profileRepository;
 
-        public AccountCommandController(UserManager<PortalUser> userManager, ICommonService commonService,
+        public AccountController(UserManager<PortalUser> userManager, ICommonService commonService,
                                      IPatientProfileRepository profileRepository)
         {
             _userManager = userManager;
