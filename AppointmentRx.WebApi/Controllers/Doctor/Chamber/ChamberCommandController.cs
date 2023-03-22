@@ -1,30 +1,53 @@
-﻿using AppointmentRx.DataAccess.Repositories.User;
-using AppointmentRx.Models;
+﻿using AppointmentRx.DataAccess.Repositories.Doctor.Chamber;
+using AppointmentRx.Models.Dto;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AppointmentRx.WebApi.Controllers.Doctor.Chamber
 {
-    [Route("doctor/chambers")]
+    [Route("api/[controller]/[action]")]
     [ApiController]
-    public class ChamberCommandController : BaseController
+    public class ChamberCommandController : ControllerBase
     {
-        private readonly IUserRepository _userRepository;
+        public IChamberRepositoy _chamberRepositoy { get; set; }
 
-        public ChamberCommandController(IUserRepository userRepository)
+        public ChamberCommandController(IChamberRepositoy chamberRepositoy) 
         {
-            _userRepository = userRepository;
+            _chamberRepositoy = chamberRepositoy;
         }
 
-        [HttpPost("add")]
-        public async Task<IActionResult> AddChamber()
+        [HttpPost]
+        [AllowAnonymous]
+        public async Task<IActionResult> CreateChamber(DoctorChamberScheduleDto model)
         {
-            var user = await _userRepository.Get(UserId);
-            if (user == null)
-                return NotFound(new HttpResponseModel(null, false, "User Not Found!"));
-            return Ok(new HttpResponseModel(user, true, "User Found!"));
+            var data = await _chamberRepositoy.Create(model);
+            return Ok(data);
         }
+
+        [HttpPut]
+        [AllowAnonymous]
+        public async Task<IActionResult> UpdateChamber(int Id, DoctorChamberScheduleDto model)
+        {
+            var data = await _chamberRepositoy.Update(Id,model);
+            return Ok(data);
+        }
+
+        [HttpDelete]
+        [AllowAnonymous]
+        public async Task<IActionResult> Delete(int Id)
+        {
+            var data = await _chamberRepositoy.Delete(Id);
+            return Ok(data);
+        }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public async Task<IActionResult> GetList()
+        {
+            var data = await _chamberRepositoy.GetList();
+            return Ok(data);
+        }
+
     }
 }
-
-
-
