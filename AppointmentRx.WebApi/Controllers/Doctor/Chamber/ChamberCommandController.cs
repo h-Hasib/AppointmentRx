@@ -8,11 +8,11 @@ namespace AppointmentRx.WebApi.Controllers.Doctor.Chamber
 {
     [Route("api/[controller]/[action]")]
     [ApiController]
-    public class ChamberController : ControllerBase
+    public class ChamberCommandController : ControllerBase
     {
         public IChamberRepositoy _chamberRepositoy { get; set; }
 
-        public ChamberController(IChamberRepositoy chamberRepositoy) 
+        public ChamberCommandController(IChamberRepositoy chamberRepositoy) 
         {
             _chamberRepositoy = chamberRepositoy;
         }
