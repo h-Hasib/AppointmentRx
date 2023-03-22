@@ -14,7 +14,7 @@ namespace AppointmentRx.DataAccess.Repositories.Doctor.Profile
         public Task<DoctorProfile?> GetById(string id);
         public Task<HttpResponseModel> Create(DoctorProfile entity);
         public Task<HttpResponseModel> Delete(int Id);
-        public Task<HttpResponseModel> Update(int Id, DoctorProfileDto model);
+        public Task<HttpResponseModel> Update(/*int Id,*/ DoctorProfileDto model);
 
         public Task<HttpResponseModel> GetDetails();
         public Task<HttpResponseModel> GetList();

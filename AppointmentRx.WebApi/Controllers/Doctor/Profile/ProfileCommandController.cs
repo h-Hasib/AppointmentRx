@@ -17,11 +17,11 @@ namespace AppointmentRx.WebApi.Controllers.Doctor.Profile
             _doctorProfileRepository = doctorProfileRepository;
         }
 
-        [HttpPut]
+        [HttpPut("doctor-update")]
         [AllowAnonymous]
-        public async Task<IActionResult> Update(int Id, DoctorProfileDto model)
+        public async Task<IActionResult> Update(/*int Id*/ DoctorProfileDto model)
         {
-            var data = await _doctorProfileRepository.Update(Id, model);
+            var data = await _doctorProfileRepository.Update(model);
             return Ok(data);
         }
 

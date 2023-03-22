@@ -36,23 +36,29 @@ namespace AppointmentRx.DataAccess.Repositories.Doctor.Profile
             return new HttpResponseModel(entity, false, "Save Failed!");
         }
 
-        public async Task<HttpResponseModel> Update(int Id, DoctorProfileDto model)
+        public async Task<HttpResponseModel> Update(/*int Id,*/ DoctorProfileDto model)
         {
-            var doctorId = await _dbContext.DoctorProfiles.FindAsync(Id);
-            var portalId = await _dbContext.PortalUsers.FirstOrDefaultAsync(f => f.Id == doctorId.Id);
+            var doctorId = "881f6999-936f-48a4-abdd-5a1eaad3e16f";
+            var doctromanager = await _userManager.Users.FirstOrDefaultAsync(x => x.Id == doctorId);
+            if (doctromanager == null)
+            {
+                new HttpResponseModel(null, false, "Doctor Not Found");
+            }
+            var doctor = await _dbContext.DoctorProfiles.FindAsync(doctromanager.Id);
 
-            if (doctorId == null && portalId == null)
+            if (doctromanager == null && doctromanager == null)
             {
                 return new HttpResponseModel(null, false, "Doctor Not Found");
             }
 
-            portalId.FirstName = model.FirstName;
-            portalId.LastName = model.LastName;
-            portalId.Avatar = model.Avatar;
+            doctromanager.FirstName = model.FirstName;
+            doctromanager.LastName = model.LastName;
+            doctromanager.Avatar = model.Avatar;
 
-            doctorId.Designation = model.Designation;
-            doctorId.Department = model.Department;
+            doctor.Designation = model.Designation;
+            doctor.Department = model.Department;
 
+            await _dbContext.SaveChangesAsync();
             return new HttpResponseModel(model);
         }
 
