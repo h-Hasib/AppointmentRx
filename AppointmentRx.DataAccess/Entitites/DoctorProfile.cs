@@ -14,9 +14,9 @@ namespace AppointmentRx.DataAccess.Entitites
         public string Designation { get; set; } // Make DesignationId from MasterData + Enum
         public string Department { get; set; }  // Make DesignationId from MasterData + Enum
 
-        [ForeignKey("UserCredential")]
-        public Guid UserCredentialId { get; set; } //FK from UserCredential
-        public UserCredential UserCredential { get; set; }
+        [ForeignKey("PortalUser")]
+        public Guid PortalUserId { get; set; } //FK from UserCredential
+        public PortalUser PortalUser { get; set; }
         public ICollection<Chamber>? Chambers { get; set; }
     }
 }

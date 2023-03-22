@@ -21,9 +21,9 @@ namespace AppointmentRx.Framework
     public enum ApplicationRole
     {
         [Description("Doctor")]
-        Doctor = 3,
+        Doctor = 2,
         [Description("Patient")]
-        Patient = 5,
+        Patient = 1,
         //[Description("Assistant")]
         //Assistant = 4
     }

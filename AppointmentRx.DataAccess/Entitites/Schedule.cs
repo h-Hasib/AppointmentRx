@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace AppointmentRx.DataAccess.Entitites
 {
@@ -15,5 +16,9 @@ namespace AppointmentRx.DataAccess.Entitites
         public bool Wednesday { get; set; }
         public bool Thursday { get; set; }
         public bool Friday { get; set; }
+
+        [ForeignKey("Chamber")]
+        public int ChamberId { get; set; }
+        public Chamber? Chamber { get; set; }
     }
 }

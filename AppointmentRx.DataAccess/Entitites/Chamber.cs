@@ -8,15 +8,13 @@ namespace AppointmentRx.DataAccess.Entitites
         [Key]
         public int Id { get; set; }
         public string Name { get; set; }
-        public float Fees { get; set; }
-        public string Address { get; set; }
+        public float? Fees { get; set; }
+        public string? Address { get; set; }
 
         [ForeignKey("DoctorProfile")]
         public int DoctorId { get; set; }
         public DoctorProfile? DoctorProfile { get; set; }
-
-        [ForeignKey("Schedule")]
-        public Guid ScheduleId { get; set; }
+        
         public Schedule? Schedule { get; set; }
     }
 }

@@ -1,8 +1,12 @@
-﻿using AppointmentRx.DataAccess.Entitites;
+﻿
+using AppointmentRx.DataAccess.Entitites;
+using AppointmentRx.DataAccess.Repositories.Patient.Profile;
 using AppointmentRx.Framework;
 using AppointmentRx.Models.Validators.CustomErrorConfiguration;
 using AppointmentRx.Services;
+using AppointmentRx.WebApi.Tokens;
 using FluentValidation.AspNetCore;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace AppointmentRx.WebApi.DependencyInjection
@@ -12,9 +16,8 @@ namespace AppointmentRx.WebApi.DependencyInjection
         private readonly static ILoggerFactory _loggerFactory;
         public static void Inject(IServiceCollection services, IConfiguration config)
         {
-            //var otpConfig = config.GetSection("OtpConfiguration").Get<OtpConfiguration>();
-            //services.AddSingleton(otpConfig);
-            services.AddControllers();
+            
+
 
             var connectionString = config.GetConnectionString("DefaultConnection");
             services.AddDbContext<PortalDbContext>(x =>
@@ -23,12 +26,8 @@ namespace AppointmentRx.WebApi.DependencyInjection
                 x.UseLoggerFactory(_loggerFactory);
             });
 
-            //services.AddDbContext<SecurityDbContext>(x =>
-            //{
-            //    x.UseSqlServer(connectionString);
-            //    x.UseLoggerFactory(_loggerFactory);
-            //});
-            //services.AddIdentity<UserCredential, IdentityRole>(x =>
+            //services.AddIdentity<PortalUser, IdentityRole>();
+            //services.AddIdentity<PortalUser, IdentityRole>(x =>
             //{
             //    x.Password.RequiredLength = 4;
             //    x.Password.RequireNonAlphanumeric = false;
@@ -36,13 +35,18 @@ namespace AppointmentRx.WebApi.DependencyInjection
             //    x.Password.RequireLowercase = false;
             //    x.Password.RequireDigit = false;
             //}).AddEntityFrameworkStores<SecurityDbContext>().AddDefaultTokenProviders();
+            services.AddControllers();
+            services.AddIdentity<PortalUser, IdentityRole>()
+                        .AddEntityFrameworkStores<PortalDbContext>()
+                        .AddDefaultTokenProviders();
+
 
             //Services
             services.AddScoped<ICipherService, CipherService>();
             services.AddScoped<ICommonService, CommonService>();
-            //services.AddScoped<ITokenService, TokenService>();
+            services.AddScoped<ITokenService, TokenService>();
             //Repository
-
+            services.AddTransient<IPatientProfileRepository, PatientProfileRepository>();
             //Business
 
             //Fluent Validation Custom Error Model Interceptor

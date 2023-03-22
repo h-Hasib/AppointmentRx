@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AppointmentRx.DataAccess.Migrations
 {
     [DbContext(typeof(PortalDbContext))]
-    [Migration("20230320105931_Initial-Migration")]
-    partial class InitialMigration
+    [Migration("20230321192609_initial")]
+    partial class initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -33,22 +33,22 @@ namespace AppointmentRx.DataAccess.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("Age")
+                    b.Property<int?>("Age")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("AppointmentTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("ChamberId")
+                    b.Property<int?>("ChamberId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("DoctorId")
+                    b.Property<int?>("DoctorId")
                         .HasColumnType("int");
 
-                    b.Property<int>("PatientId")
+                    b.Property<int?>("PatientId")
                         .HasColumnType("int");
 
                     b.Property<string>("PatientName")
@@ -57,7 +57,7 @@ namespace AppointmentRx.DataAccess.Migrations
                     b.Property<string>("PhoneNumber")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("SerialNumber")
+                    b.Property<int?>("SerialNumber")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -74,27 +74,21 @@ namespace AppointmentRx.DataAccess.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Address")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("DoctorId")
                         .HasColumnType("int");
 
-                    b.Property<float>("Fees")
+                    b.Property<float?>("Fees")
                         .HasColumnType("real");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("ScheduleId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.HasKey("Id");
 
                     b.HasIndex("DoctorId");
-
-                    b.HasIndex("ScheduleId");
 
                     b.ToTable("Chambers");
                 });
@@ -108,6 +102,7 @@ namespace AppointmentRx.DataAccess.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Avatar")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("BMDCNumber")
@@ -130,12 +125,13 @@ namespace AppointmentRx.DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("UserCredentialId")
+                    b.Property<Guid>("PortalUserId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserCredentialId");
+                    b.HasIndex("PortalUserId")
+                        .IsUnique();
 
                     b.ToTable("DoctorProfiles");
                 });
@@ -190,14 +186,117 @@ namespace AppointmentRx.DataAccess.Migrations
                     b.Property<string>("Occupation")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("UserCredentialId")
+                    b.Property<Guid>("PortalUserId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserCredentialId");
+                    b.HasIndex("PortalUserId")
+                        .IsUnique();
 
                     b.ToTable("PatientProfiles");
+                });
+
+            modelBuilder.Entity("AppointmentRx.DataAccess.Entitites.PortalUser", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("AccessFailedCount")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Avatar")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ContactNo")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CountryCode")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("EmailConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("FcmToken")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FirstName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool?>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("IsVerified")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("LastName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("LockoutEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset?>("LockoutEnd")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("NormalizedEmail")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NormalizedUserName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("Otp")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("OtpExpiryAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Password")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PasswordHash")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("PhoneNumberConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Provider")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("RefreshToken")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("RefreshTokenExpiresAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("RoleId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("SecurityStamp")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("TwoFactorEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("UserName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("PortalUsers");
                 });
 
             modelBuilder.Entity("AppointmentRx.DataAccess.Entitites.Schedule", b =>
@@ -205,6 +304,9 @@ namespace AppointmentRx.DataAccess.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("ChamberId")
+                        .HasColumnType("int");
 
                     b.Property<string>("ClosingTime")
                         .HasColumnType("nvarchar(max)");
@@ -235,97 +337,10 @@ namespace AppointmentRx.DataAccess.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("ChamberId")
+                        .IsUnique();
+
                     b.ToTable("Schedules");
-                });
-
-            modelBuilder.Entity("AppointmentRx.DataAccess.Entitites.UserCredential", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<int>("AccessFailedCount")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ConcurrencyStamp")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ContactNo")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("CountryCode")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("CreatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Email")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("EmailConfirmed")
-                        .HasColumnType("bit");
-
-                    b.Property<bool?>("IsActive")
-                        .HasColumnType("bit");
-
-                    b.Property<bool?>("IsVerified")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("LockoutEnabled")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTimeOffset?>("LockoutEnd")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<string>("NormalizedEmail")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("NormalizedUserName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("Otp")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime?>("OtpExpiryAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Password")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PasswordHash")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PhoneNumber")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("PhoneNumberConfirmed")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("RefreshToken")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("RefreshTokenExpiresAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("RoleId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("SecurityStamp")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("TwoFactorEnabled")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("UserName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("UserCredentials");
                 });
 
             modelBuilder.Entity("AppointmentRx.DataAccess.Entitites.Chamber", b =>
@@ -336,42 +351,59 @@ namespace AppointmentRx.DataAccess.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("AppointmentRx.DataAccess.Entitites.Schedule", "Schedule")
-                        .WithMany()
-                        .HasForeignKey("ScheduleId")
+                    b.Navigation("DoctorProfile");
+                });
+
+            modelBuilder.Entity("AppointmentRx.DataAccess.Entitites.DoctorProfile", b =>
+                {
+                    b.HasOne("AppointmentRx.DataAccess.Entitites.PortalUser", "PortalUser")
+                        .WithOne("DoctorProfile")
+                        .HasForeignKey("AppointmentRx.DataAccess.Entitites.DoctorProfile", "PortalUserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("DoctorProfile");
+                    b.Navigation("PortalUser");
+                });
 
+            modelBuilder.Entity("AppointmentRx.DataAccess.Entitites.PatientProfile", b =>
+                {
+                    b.HasOne("AppointmentRx.DataAccess.Entitites.PortalUser", "PortalUser")
+                        .WithOne("PatientProfile")
+                        .HasForeignKey("AppointmentRx.DataAccess.Entitites.PatientProfile", "PortalUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("PortalUser");
+                });
+
+            modelBuilder.Entity("AppointmentRx.DataAccess.Entitites.Schedule", b =>
+                {
+                    b.HasOne("AppointmentRx.DataAccess.Entitites.Chamber", "Chamber")
+                        .WithOne("Schedule")
+                        .HasForeignKey("AppointmentRx.DataAccess.Entitites.Schedule", "ChamberId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Chamber");
+                });
+
+            modelBuilder.Entity("AppointmentRx.DataAccess.Entitites.Chamber", b =>
+                {
                     b.Navigation("Schedule");
                 });
 
             modelBuilder.Entity("AppointmentRx.DataAccess.Entitites.DoctorProfile", b =>
                 {
-                    b.HasOne("AppointmentRx.DataAccess.Entitites.UserCredential", "UserCredential")
-                        .WithMany()
-                        .HasForeignKey("UserCredentialId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("UserCredential");
-                });
-
-            modelBuilder.Entity("AppointmentRx.DataAccess.Entitites.PatientProfile", b =>
-                {
-                    b.HasOne("AppointmentRx.DataAccess.Entitites.UserCredential", "UserCredential")
-                        .WithMany()
-                        .HasForeignKey("UserCredentialId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("UserCredential");
-                });
-
-            modelBuilder.Entity("AppointmentRx.DataAccess.Entitites.DoctorProfile", b =>
-                {
                     b.Navigation("Chambers");
+                });
+
+            modelBuilder.Entity("AppointmentRx.DataAccess.Entitites.PortalUser", b =>
+                {
+                    b.Navigation("DoctorProfile")
+                        .IsRequired();
+
+                    b.Navigation("PatientProfile")
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

@@ -5,7 +5,9 @@ namespace AppointmentRx.Models
     public class LoginModel
     {
         [Required]
-        public string PhoneNo { get; set; }
+        public string UserName { get; set; }
+        [Required]
+        public string Password { get; set; }
     }
     public class ChangePasword
     {
@@ -22,10 +24,5 @@ namespace AppointmentRx.Models
         public string RefreshToken { get; set; }
         public DateTime? AccessTokenExpiresAt { get; set; }
         public DateTime? RefreshTokenExpiresAt { get; set; }
-    }
-    public class ChangePass
-    {
-        public string UserName { get; set; }
-        public string Password { get; set; }
     }
 }

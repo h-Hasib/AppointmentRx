@@ -16,9 +16,9 @@ namespace AppointmentRx.WebApi.Controllers
     public abstract class BaseController : Controller
     {
         protected static Logger Logger = LogManager.GetCurrentClassLogger();
-        protected BaseController(){}
+        protected BaseController() { }
         public string UserId => this.User.Claims.First(x => x.Type == JwtRegisteredClaimNames.Sid).Value;
-        public string RoleId => this.User.Identity.GetRoleId(); 
+        public string RoleId => this.User.Identity.GetRoleId();
     }
     public static class CustomClaimTypes
     {

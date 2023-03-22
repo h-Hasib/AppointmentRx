@@ -15,8 +15,8 @@ namespace AppointmentRx.DataAccess.Entitites
         public DateTime? DateOfBirth { get; set; }
         public string Address { get; set; }
 
-        [ForeignKey("UserCredential")]
-        public Guid UserCredentialId { get; set; } //FK from UserCredential
-        public UserCredential UserCredential { get; set; }
+        [ForeignKey("PortalUser")]
+        public Guid PortalUserId { get; set; } //FK from PortalUser
+        public PortalUser? PortalUser { get; set; }
     }
 }

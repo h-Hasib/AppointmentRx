@@ -18,7 +18,6 @@ using JsonSerializer = System.Text.Json.JsonSerializer;
 
 var builder = WebApplication.CreateBuilder(args);
 
-
 //Fluent Validation
 builder.Services.AddControllers()
         .ConfigureApiBehaviorOptions(options =>
@@ -37,25 +36,21 @@ builder.Services.AddFluentValidationAutoValidation();
 builder.Services.AddFluentValidationClientsideAdapters();
 builder.Services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
 
-//Inject Dependency
-DependencyServices.Inject(builder.Services, builder.Configuration);
-
-
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                       .AddJwtBearer(options =>
                       {
                           options.RequireHttpsMetadata = false;
                           options.SaveToken = true;
 
-                          options.TokenValidationParameters =
-                               new TokenValidationParameters
-                               {
-                                   ValidIssuer = builder.Configuration["Tokens:Issuer"],
-                                   ValidAudience = builder.Configuration["Tokens:Audience"],
-                                   ValidateIssuerSigningKey = true,
-                                   ValidateLifetime = true,
-                                   IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Tokens:Key"]))
-                               };
+                          //options.TokenValidationParameters =
+                          //     new TokenValidationParameters
+                          //     {
+                          //         ValidIssuer = builder.Configuration["Tokens:Issuer"],
+                          //         ValidAudience = builder.Configuration["Tokens:Audience"],
+                          //         ValidateIssuerSigningKey = true,
+                          //         ValidateLifetime = true,
+                          //         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Tokens:Key"]))
+                          //     };
                       })
                       .AddCookie(options =>
                       {
@@ -116,9 +111,8 @@ builder.Services.Configure<MvcOptions>(options =>
     options.Filters.Add(new AuthorizeFilter("Authenticated"));
 });
 
+builder.Services.AddAuthentication();
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
-
 builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo
@@ -126,28 +120,31 @@ builder.Services.AddSwaggerGen(c =>
         Title = "Appointment-Rx",
         Version = "v1"
     });
-    //c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
-    //{
-    //    Name = "Authorization",
-    //    Type = SecuritySchemeType.ApiKey,
-    //    Scheme = "Bearer",
-    //    BearerFormat = "JWT",
-    //    In = ParameterLocation.Header,
-    //    Description = "JWT Authorization header using the Bearer scheme. \r\n\r\n Enter 'Bearer' [space] and then your token in the text input below.\r\n\r\nExample: \"Bearer 1safsfsdfdfd\"",
-    //});
-    //c.AddSecurityRequirement(new OpenApiSecurityRequirement
-    //{
-    //    {
-    //        new OpenApiSecurityScheme {
-    //            Reference = new OpenApiReference {
-    //                Type = ReferenceType.SecurityScheme,
-    //                    Id = "Bearer"
-    //            }
-    //        },
-    //        new string[] {}
-    //    }
-    //});
+    c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
+    {
+        Name = "Authorization",
+        Type = SecuritySchemeType.ApiKey,
+        Scheme = "Bearer",
+        BearerFormat = "JWT",
+        In = ParameterLocation.Header,
+        Description = "JWT Authorization header using the Bearer scheme. \r\n\r\n Enter 'Bearer' [space] and then your token in the text input below.\r\n\r\nExample: \"Bearer 1safsfsdfdfd\"",
+    });
+    c.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {
+        {
+            new OpenApiSecurityScheme {
+                Reference = new OpenApiReference {
+                    Type = ReferenceType.SecurityScheme,
+                        Id = "Bearer"
+                }
+            },
+            new string[] {}
+        }
+    });
 });
+
+//Inject Dependency
+DependencyServices.Inject(builder.Services, builder.Configuration);
 
 var app = builder.Build();
 
@@ -161,6 +158,7 @@ if (app.Environment.IsDevelopment())
 app.UseCors("CorsPolicy");
 app.UseHttpsRedirection();
 app.UseAuthentication();
+
 app.UseAuthorization();
 app.MapControllers();
 app.Run();

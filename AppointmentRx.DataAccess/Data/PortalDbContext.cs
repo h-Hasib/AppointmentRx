@@ -6,7 +6,7 @@ namespace AppointmentRx.DataAccess.Entitites
     {
         public PortalDbContext(DbContextOptions<PortalDbContext> options) : base(options) {}
 
-        public DbSet<UserCredential> UserCredentials { get; set; }
+        public DbSet<PortalUser> PortalUsers { get; set; }
         public DbSet<PatientProfile> PatientProfiles { get; set; }
         public DbSet<DoctorProfile> DoctorProfiles { get; set; }
         public DbSet<Schedule> Schedules { get; set; }
