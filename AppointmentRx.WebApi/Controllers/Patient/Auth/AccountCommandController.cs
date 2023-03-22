@@ -1,17 +1,12 @@
 ﻿using AppointmentRx.DataAccess.Entitites;
+using AppointmentRx.DataAccess.Repositories.Patient.Profile;
 using AppointmentRx.Framework;
 using AppointmentRx.Models;
-using AppointmentRx.Services;
-using AppointmentRx.WebApi.Controllers;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using AppointmentRx.DataAccess.Repositories.Patient.Profile;
 using AppointmentRx.Models.Dto;
+using AppointmentRx.Services;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 
 namespace AppointmentRx.WebApi.Controllers.Patient.Auth
 {
@@ -60,20 +55,14 @@ namespace AppointmentRx.WebApi.Controllers.Patient.Auth
         {
             var userEntity = new PortalUser
             {
-                //Id = Guid.NewGuid().ToString(),
                 UserName = request.UserName,
-               
                 CountryCode = request.CountryCode,
-            
                 Email = request.Email,
                 FirstName = request.FirstName,
                 LastName = request.LastName,
                 Avatar = request.Avatar,
-
-
                 CreatedAt = DateTime.UtcNow,
                 Otp = _commonService.GenerateOtp(),
-                //OtpExpiryAt = DateTime.UtcNow.AddMinutes(_otpConfig.Expiration),
                 RoleId = (int)ApplicationRole.Patient
             };
             var userCreateResponse = await _userManager.CreateAsync(userEntity);
@@ -85,8 +74,7 @@ namespace AppointmentRx.WebApi.Controllers.Patient.Auth
                 Id = userEntity.Id
             };
             await _profileRepository.Create(profile);
-            //var smsResponse = await SendSignupOtp(phoneNo, userEntity.Otp.ToString());
-            return Ok(new { NewUser = true, Message = "User created and OTP sent. OTP is: " + userEntity.Otp });//, smsResponse });
+            return Ok(new { NewUser = true, Message = "User created and OTP sent. OTP is: " + userEntity.Otp });
         }
         //private async Task<IActionResult> SendOtpIfExists(PortalUser portalUser)
         //{
