@@ -1,14 +1,12 @@
 ﻿using AppointmentRx.DataAccess.Entitites;
-using AppointmentRx.DataAccess.Repositories.Patient.Profile;
+using AppointmentRx.DataAccess.Repositories.Doctor.Profile;
 using AppointmentRx.Framework;
-using AppointmentRx.Models.Dto;
 using AppointmentRx.Models;
+using AppointmentRx.Models.Dto;
 using AppointmentRx.Services;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using AppointmentRx.DataAccess.Repositories.Doctor.Profile;
 
 namespace AppointmentRx.WebApi.Controllers.Doctor.Auth
 {
@@ -18,7 +16,6 @@ namespace AppointmentRx.WebApi.Controllers.Doctor.Auth
     {
         private readonly UserManager<PortalUser> _userManager;
         private readonly ICommonService _commonService;
-        //private readonly OtpConfiguration _otpConfig;
         private readonly IDoctorProfileRepository _profileRepository;
 
         public AccountCommandController(UserManager<PortalUser> userManager, ICommonService commonService,
@@ -26,7 +23,6 @@ namespace AppointmentRx.WebApi.Controllers.Doctor.Auth
         {
             _userManager = userManager;
             _commonService = commonService;
-            //_otpConfig = otpConfig;
             _profileRepository = profileRepository;
         }
 
@@ -35,13 +31,13 @@ namespace AppointmentRx.WebApi.Controllers.Doctor.Auth
         [Route("login")]
         public async Task<IActionResult> Login([FromBody] LoginModel model)
         {
-            var user = await _userManager.FindByNameAsync(model.UserName);
+            var user = await _userManager.FindByNameAsync(model.Email);
             if (user == null)
             {
                 var newUser = await CreateAccount(
                     new DoctorRegistrationDto
                     {
-                        UserName = model.UserName,
+                        Email = model.Email,
                         Password = model.Password,
                     }
                 );
@@ -57,20 +53,15 @@ namespace AppointmentRx.WebApi.Controllers.Doctor.Auth
         {
             var userEntity = new PortalUser
             {
-                //Id = Guid.NewGuid().ToString(),
-                UserName = request.UserName,
-
+                UserName = request.Email,
+                PasswordHash = request.Password,
                 CountryCode = request.CountryCode,
-
                 Email = request.Email,
                 FirstName = request.FirstName,
                 LastName = request.LastName,
                 Avatar = request.Avatar,
-
-
                 CreatedAt = DateTime.UtcNow,
                 Otp = _commonService.GenerateOtp(),
-                //OtpExpiryAt = DateTime.UtcNow.AddMinutes(_otpConfig.Expiration),
                 RoleId = (int)ApplicationRole.Doctor
             };
             var userCreateResponse = await _userManager.CreateAsync(userEntity);
@@ -82,8 +73,7 @@ namespace AppointmentRx.WebApi.Controllers.Doctor.Auth
                 Id = userEntity.Id
             };
             await _profileRepository.Create(profile);
-            //var smsResponse = await SendSignupOtp(phoneNo, userEntity.Otp.ToString());
-            return Ok(new { NewUser = true, Message = "User created and OTP sent. OTP is: " + userEntity.Otp });//, smsResponse });
+            return Ok(new { NewUser = true, Message = "User created and OTP sent. OTP is: " + userEntity.Otp });
         }
     }
 }
