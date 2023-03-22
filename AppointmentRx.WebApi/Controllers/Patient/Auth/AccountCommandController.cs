@@ -73,8 +73,11 @@ namespace AppointmentRx.WebApi.Controllers.Patient.Auth
             {
                 Id = userEntity.Id
             };
-            await _profileRepository.Create(profile);
-            return Ok(new { NewUser = true, Message = "User created and OTP sent. OTP is: " + userEntity.Otp });
+            var result = await _profileRepository.Create(profile);
+            if(result == null)
+                return BadRequest(new HttpResponseModel(data: null, success: false, message: "account create failed."));
+            
+            return Ok(new HttpResponseModel(data: profile, success: true, message:"account create success."));
         }
     }
 }

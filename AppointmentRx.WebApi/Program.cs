@@ -18,6 +18,8 @@ using JsonSerializer = System.Text.Json.JsonSerializer;
 
 var builder = WebApplication.CreateBuilder(args);
 
+//Add Mapper
+builder.Services.AddAutoMapper(typeof(Program));
 //Fluent Validation
 builder.Services.AddControllers()
         .ConfigureApiBehaviorOptions(options =>
