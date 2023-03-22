@@ -10,7 +10,7 @@ namespace AppointmentRx.DataAccess.Entitites
         public DbSet<PatientProfile> PatientProfiles { get; set; }
         public DbSet<DoctorProfile> DoctorProfiles { get; set; }
         public DbSet<Schedule> Schedules { get; set; }
-        public DbSet<Chamber> Chambers { get; set; }
+        public DbSet<Chambers> Chambers { get; set; }
         public DbSet<Appointment> Appointments { get; set; }
         public DbSet<FavoriteDoctor> FavoriteDoctors { get; set; }
 
