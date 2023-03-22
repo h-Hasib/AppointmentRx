@@ -8,8 +8,8 @@ namespace AppointmentRx.Models.Dto
 {
     public class PatientRegistrationDto
     {
-        public string UserName { get; set; }
-        public string Password { get; set; }
+        public string? UserName { get; set; }
+        public string? Password { get; set; }
         public string? CountryCode { get; set; }
         public string? ContactNo { get; set; }
         public string? Email { get; set; }

@@ -60,11 +60,11 @@ namespace AppointmentRx.WebApi.Controllers.Patient.Auth
         {
             var userEntity = new PortalUser
             {
-                //Id = new Guid(),
+                //Id = Guid.NewGuid().ToString(),
                 UserName = request.UserName,
-                Password = request.Password,
+               
                 CountryCode = request.CountryCode,
-                ContactNo = request.ContactNo,
+            
                 Email = request.Email,
                 FirstName = request.FirstName,
                 LastName = request.LastName,
@@ -82,7 +82,7 @@ namespace AppointmentRx.WebApi.Controllers.Patient.Auth
 
             var profile = new PatientProfile
             {
-                PortalUserId = userEntity.Id
+                Id = userEntity.Id
             };
             await _profileRepository.Create(profile);
             //var smsResponse = await SendSignupOtp(phoneNo, userEntity.Otp.ToString());

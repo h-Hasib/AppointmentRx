@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace AppointmentRx.DataAccess.Migrations
 {
     /// <inheritdoc />
-    public partial class initial : Migration
+    public partial class databasecorrection : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -33,13 +33,27 @@ namespace AppointmentRx.DataAccess.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "DoctorProfiles",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    BMDCNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Designation = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Department = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_DoctorProfiles", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "FavoriteDoctors",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    PatientId = table.Column<int>(type: "int", nullable: false),
-                    DoctorId = table.Column<int>(type: "int", nullable: false)
+                    PatientId = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    DoctorId = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -47,14 +61,25 @@ namespace AppointmentRx.DataAccess.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "PatientProfiles",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Occupation = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    BloodGroup = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DateOfBirth = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    Address = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PatientProfiles", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "PortalUsers",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    UserName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Password = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ContactNo = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     CountryCode = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     FirstName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     LastName = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -69,7 +94,9 @@ namespace AppointmentRx.DataAccess.Migrations
                     IsVerified = table.Column<bool>(type: "bit", nullable: true),
                     RefreshToken = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     RefreshTokenExpiresAt = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    UserName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     NormalizedEmail = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     EmailConfirmed = table.Column<bool>(type: "bit", nullable: false),
                     PasswordHash = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -88,57 +115,6 @@ namespace AppointmentRx.DataAccess.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "DoctorProfiles",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Avatar = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    BMDCNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Designation = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Department = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    PortalUserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_DoctorProfiles", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_DoctorProfiles_PortalUsers_PortalUserId",
-                        column: x => x.PortalUserId,
-                        principalTable: "PortalUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "PatientProfiles",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Avatar = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Occupation = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    BloodGroup = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    DateOfBirth = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    Address = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    PortalUserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_PatientProfiles", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_PatientProfiles_PortalUsers_PortalUserId",
-                        column: x => x.PortalUserId,
-                        principalTable: "PortalUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Chambers",
                 columns: table => new
                 {
@@ -147,7 +123,9 @@ namespace AppointmentRx.DataAccess.Migrations
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Fees = table.Column<float>(type: "real", nullable: true),
                     Address = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    DoctorId = table.Column<int>(type: "int", nullable: false)
+                    OpeningTime = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ClosingTime = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DoctorId = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -164,16 +142,15 @@ namespace AppointmentRx.DataAccess.Migrations
                 name: "Schedules",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    OpeningTime = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ClosingTime = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Saturday = table.Column<bool>(type: "bit", nullable: false),
-                    Sunday = table.Column<bool>(type: "bit", nullable: false),
-                    Monday = table.Column<bool>(type: "bit", nullable: false),
-                    Tuesday = table.Column<bool>(type: "bit", nullable: false),
-                    Wednesday = table.Column<bool>(type: "bit", nullable: false),
-                    Thursday = table.Column<bool>(type: "bit", nullable: false),
-                    Friday = table.Column<bool>(type: "bit", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Saturday = table.Column<bool>(type: "bit", nullable: true),
+                    Sunday = table.Column<bool>(type: "bit", nullable: true),
+                    Monday = table.Column<bool>(type: "bit", nullable: true),
+                    Tuesday = table.Column<bool>(type: "bit", nullable: true),
+                    Wednesday = table.Column<bool>(type: "bit", nullable: true),
+                    Thursday = table.Column<bool>(type: "bit", nullable: true),
+                    Friday = table.Column<bool>(type: "bit", nullable: true),
                     ChamberId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -191,18 +168,6 @@ namespace AppointmentRx.DataAccess.Migrations
                 name: "IX_Chambers_DoctorId",
                 table: "Chambers",
                 column: "DoctorId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_DoctorProfiles_PortalUserId",
-                table: "DoctorProfiles",
-                column: "PortalUserId",
-                unique: true);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_PatientProfiles_PortalUserId",
-                table: "PatientProfiles",
-                column: "PortalUserId",
-                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Schedules_ChamberId",
@@ -224,6 +189,9 @@ namespace AppointmentRx.DataAccess.Migrations
                 name: "PatientProfiles");
 
             migrationBuilder.DropTable(
+                name: "PortalUsers");
+
+            migrationBuilder.DropTable(
                 name: "Schedules");
 
             migrationBuilder.DropTable(
@@ -231,9 +199,6 @@ namespace AppointmentRx.DataAccess.Migrations
 
             migrationBuilder.DropTable(
                 name: "DoctorProfiles");
-
-            migrationBuilder.DropTable(
-                name: "PortalUsers");
         }
     }
 }

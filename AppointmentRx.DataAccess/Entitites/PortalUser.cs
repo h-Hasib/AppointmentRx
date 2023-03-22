@@ -7,11 +7,7 @@ namespace AppointmentRx.DataAccess.Entitites
     public class PortalUser : IdentityUser
     {
         [Key]
-        public Guid Id { get; set; }
-        public string? UserName { get; set; }
-        public string? Password { get; set; }
-        public string? ContactNo { get; set; }
-        public string Email { get; set; }
+        public override string Id { get; set; }
         public string? CountryCode { get; set; }
         public string? FirstName { get; set; }
         public string? LastName { get; set; }
@@ -26,8 +22,5 @@ namespace AppointmentRx.DataAccess.Entitites
         public bool? IsVerified { get; set; }
         public string? RefreshToken { get; set; }
         public DateTime? RefreshTokenExpiresAt { get; set; }
-
-        public PatientProfile PatientProfile { get; set; }
-        public DoctorProfile DoctorProfile { get; set; }
     }
 }

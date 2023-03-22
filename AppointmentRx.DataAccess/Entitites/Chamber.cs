@@ -10,9 +10,11 @@ namespace AppointmentRx.DataAccess.Entitites
         public string Name { get; set; }
         public float? Fees { get; set; }
         public string? Address { get; set; }
+        public string? OpeningTime { get; set; }    //Time handles ranges from 00:00:00 through 23:59:59
+        public string? ClosingTime { get; set; }
 
         [ForeignKey("DoctorProfile")]
-        public int DoctorId { get; set; }
+        public string DoctorId { get; set; }
         public DoctorProfile? DoctorProfile { get; set; }
         
         public Schedule? Schedule { get; set; }

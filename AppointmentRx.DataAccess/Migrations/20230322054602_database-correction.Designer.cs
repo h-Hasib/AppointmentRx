@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AppointmentRx.DataAccess.Migrations
 {
     [DbContext(typeof(PortalDbContext))]
-    [Migration("20230321192609_initial")]
-    partial class initial
+    [Migration("20230322054602_database-correction")]
+    partial class databasecorrection
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -76,14 +76,21 @@ namespace AppointmentRx.DataAccess.Migrations
                     b.Property<string>("Address")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("DoctorId")
-                        .HasColumnType("int");
+                    b.Property<string>("ClosingTime")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("DoctorId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<float?>("Fees")
                         .HasColumnType("real");
 
                     b.Property<string>("Name")
                         .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("OpeningTime")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -95,43 +102,19 @@ namespace AppointmentRx.DataAccess.Migrations
 
             modelBuilder.Entity("AppointmentRx.DataAccess.Entitites.DoctorProfile", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Avatar")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("BMDCNumber")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Department")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Designation")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid>("PortalUserId")
-                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("PortalUserId")
-                        .IsUnique();
 
                     b.ToTable("DoctorProfiles");
                 });
@@ -144,11 +127,13 @@ namespace AppointmentRx.DataAccess.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("DoctorId")
-                        .HasColumnType("int");
+                    b.Property<string>("DoctorId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("PatientId")
-                        .HasColumnType("int");
+                    b.Property<string>("PatientId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -157,17 +142,10 @@ namespace AppointmentRx.DataAccess.Migrations
 
             modelBuilder.Entity("AppointmentRx.DataAccess.Entitites.PatientProfile", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Address")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Avatar")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("BloodGroup")
@@ -176,32 +154,18 @@ namespace AppointmentRx.DataAccess.Migrations
                     b.Property<DateTime?>("DateOfBirth")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("LastName")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Occupation")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("PortalUserId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("PortalUserId")
-                        .IsUnique();
 
                     b.ToTable("PatientProfiles");
                 });
 
             modelBuilder.Entity("AppointmentRx.DataAccess.Entitites.PortalUser", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
@@ -212,9 +176,6 @@ namespace AppointmentRx.DataAccess.Migrations
                     b.Property<string>("ConcurrencyStamp")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ContactNo")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("CountryCode")
                         .HasColumnType("nvarchar(max)");
 
@@ -222,7 +183,6 @@ namespace AppointmentRx.DataAccess.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Email")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("EmailConfirmed")
@@ -261,9 +221,6 @@ namespace AppointmentRx.DataAccess.Migrations
                     b.Property<DateTime?>("OtpExpiryAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Password")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("PasswordHash")
                         .HasColumnType("nvarchar(max)");
 
@@ -301,38 +258,34 @@ namespace AppointmentRx.DataAccess.Migrations
 
             modelBuilder.Entity("AppointmentRx.DataAccess.Entitites.Schedule", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("ChamberId")
                         .HasColumnType("int");
 
-                    b.Property<string>("ClosingTime")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("Friday")
+                    b.Property<bool?>("Friday")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("Monday")
+                    b.Property<bool?>("Monday")
                         .HasColumnType("bit");
 
-                    b.Property<string>("OpeningTime")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("Saturday")
+                    b.Property<bool?>("Saturday")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("Sunday")
+                    b.Property<bool?>("Sunday")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("Thursday")
+                    b.Property<bool?>("Thursday")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("Tuesday")
+                    b.Property<bool?>("Tuesday")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("Wednesday")
+                    b.Property<bool?>("Wednesday")
                         .HasColumnType("bit");
 
                     b.HasKey("Id");
@@ -354,28 +307,6 @@ namespace AppointmentRx.DataAccess.Migrations
                     b.Navigation("DoctorProfile");
                 });
 
-            modelBuilder.Entity("AppointmentRx.DataAccess.Entitites.DoctorProfile", b =>
-                {
-                    b.HasOne("AppointmentRx.DataAccess.Entitites.PortalUser", "PortalUser")
-                        .WithOne("DoctorProfile")
-                        .HasForeignKey("AppointmentRx.DataAccess.Entitites.DoctorProfile", "PortalUserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("PortalUser");
-                });
-
-            modelBuilder.Entity("AppointmentRx.DataAccess.Entitites.PatientProfile", b =>
-                {
-                    b.HasOne("AppointmentRx.DataAccess.Entitites.PortalUser", "PortalUser")
-                        .WithOne("PatientProfile")
-                        .HasForeignKey("AppointmentRx.DataAccess.Entitites.PatientProfile", "PortalUserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("PortalUser");
-                });
-
             modelBuilder.Entity("AppointmentRx.DataAccess.Entitites.Schedule", b =>
                 {
                     b.HasOne("AppointmentRx.DataAccess.Entitites.Chamber", "Chamber")
@@ -395,15 +326,6 @@ namespace AppointmentRx.DataAccess.Migrations
             modelBuilder.Entity("AppointmentRx.DataAccess.Entitites.DoctorProfile", b =>
                 {
                     b.Navigation("Chambers");
-                });
-
-            modelBuilder.Entity("AppointmentRx.DataAccess.Entitites.PortalUser", b =>
-                {
-                    b.Navigation("DoctorProfile")
-                        .IsRequired();
-
-                    b.Navigation("PatientProfile")
-                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

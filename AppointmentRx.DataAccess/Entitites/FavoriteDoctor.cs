@@ -7,7 +7,7 @@ namespace AppointmentRx.DataAccess.Entitites
     {
         [Key]
         public int Id { get; set; }
-        public int PatientId { get; set; }
-        public int DoctorId { get; set; }
+        public string PatientId { get; set; }
+        public string DoctorId { get; set; }
     }
 }
