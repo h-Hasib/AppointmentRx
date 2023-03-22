@@ -56,6 +56,7 @@ namespace AppointmentRx.WebApi.Controllers.Doctor.Auth
                 UserName = request.Email,
                 PasswordHash = request.Password,
                 CountryCode = request.CountryCode,
+                PhoneNumber = request.ContactNo,
                 Email = request.Email,
                 FirstName = request.FirstName,
                 LastName = request.LastName,

@@ -19,5 +19,13 @@ namespace AppointmentRx.DataAccess.Repositories.User
         {
             return await _db.PortalUsers.FirstOrDefaultAsync(u => u.Id == id);
         }
+        public async Task<PortalUser> Update(PortalUser user)
+        {
+            _db.PortalUsers.Update(user);
+
+            if (await _db.SaveChangesAsync() > 0)
+                return user;
+            return null;
+        }
     }
 }
