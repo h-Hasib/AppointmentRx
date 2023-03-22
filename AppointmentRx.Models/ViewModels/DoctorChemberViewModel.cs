@@ -1,12 +1,19 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace AppointmentRx.DataAccess.Entitites
+namespace AppointmentRx.Models.ViewModels
 {
-    public class Schedule
+    public class DoctorChemberViewModel
     {
-        [Key]
+
         public int Id { get; set; }
+        public string Name { get; set; }
+        public float? Fees { get; set; }
+        public string? Address { get; set; }
+
         public bool? Saturday { get; set; }
         public bool? Sunday { get; set; }
         public bool? Monday { get; set; }
@@ -15,8 +22,5 @@ namespace AppointmentRx.DataAccess.Entitites
         public bool? Thursday { get; set; }
         public bool? Friday { get; set; }
 
-        [ForeignKey("Chamber")]
-        public int ChamberId { get; set; }
-        public Chambers? Chamber { get; set; }
     }
 }

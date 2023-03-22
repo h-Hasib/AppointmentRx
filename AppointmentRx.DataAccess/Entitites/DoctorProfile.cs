@@ -11,6 +11,6 @@ namespace AppointmentRx.DataAccess.Entitites
         public string? Designation { get; set; } // Make DesignationId from MasterData + Enum
         public string? Department { get; set; }  // Make DesignationId from MasterData + Enum
 
-        public ICollection<Chamber>? Chambers { get; set; }
+        public ICollection<Chambers>? Chambers { get; set; }
     }
 }
