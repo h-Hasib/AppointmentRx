@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace AppointmentRx.WebApi.Controllers.Doctor.Auth
 {
-    [Route("doctor/auth")]
+    [Route("/api/auth/doctor/[action]")]
     [ApiController]
     public class AccountCommandController : ControllerBase
     {
@@ -28,7 +28,7 @@ namespace AppointmentRx.WebApi.Controllers.Doctor.Auth
 
         [HttpPost]
         [AllowAnonymous]
-        [Route("login")]
+
         public async Task<IActionResult> Login([FromBody] LoginModel model)
         {
             var user = await _userManager.FindByNameAsync(model.Email);
@@ -48,7 +48,7 @@ namespace AppointmentRx.WebApi.Controllers.Doctor.Auth
 
         [HttpPost]
         [AllowAnonymous]
-        [Route("createAccount")]
+
         public async Task<IActionResult> CreateAccount(DoctorRegistrationDto request)
         {
             var userEntity = new PortalUser

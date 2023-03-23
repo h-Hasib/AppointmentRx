@@ -36,6 +36,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\AppointmentRx.Framework\AppointmentRx.Framework.csproj" />
     <ProjectReference Include="..\AppointmentRx.Models\AppointmentRx.Models.csproj" />
   </ItemGroup>
 
