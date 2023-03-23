@@ -1,6 +1,12 @@
-﻿namespace AppointmentRx.Models.ViewModels
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace AppointmentRx.Models.ViewModels
 {
-    public class DoctorListVM
+    public class DoctorDetailsVM
     {
         public string? DoctorId { get; set; }
         public string? Avatar { get; set; }
@@ -8,5 +14,7 @@
         public string? LastName { get; set; }
         public string? Designation { get; set; }
         public string? Department { get; set; }
+        public string? Email { get; set; }
+        public string? PhoneNumber { get; set; }
     }
 }
