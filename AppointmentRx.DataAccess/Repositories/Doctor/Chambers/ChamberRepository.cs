@@ -9,7 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AppointmentRx.DataAccess.Repositories.Doctor.Chamber
+namespace AppointmentRx.DataAccess.Repositories.Doctor.Chambers
 {
     public class ChamberRepository:IChamberRepositoy
     {
@@ -24,7 +24,7 @@ namespace AppointmentRx.DataAccess.Repositories.Doctor.Chamber
         {
             var id = "bd1d4d84-e4aa-466d-943a-b19cabad8308";
 
-            Chambers chambers = new Chambers();
+            Chamber chambers = new Chamber();
 
             chambers.Name = model.Name;
             chambers.Address = model.Address;

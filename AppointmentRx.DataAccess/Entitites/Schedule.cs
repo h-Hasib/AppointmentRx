@@ -17,6 +17,6 @@ namespace AppointmentRx.DataAccess.Entitites
 
         [ForeignKey("Chamber")]
         public int ChamberId { get; set; }
-        public Chambers? Chamber { get; set; }
+        public Chamber? Chamber { get; set; }
     }
 }
