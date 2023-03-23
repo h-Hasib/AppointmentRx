@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AppointmentRx.DataAccess.Repositories.Doctor.Chamber
+namespace AppointmentRx.DataAccess.Repositories.Doctor.Chambers
 {
     public interface IChamberRepositoy
     {

@@ -1,6 +1,7 @@
 ﻿
 using AppointmentRx.DataAccess.Entitites;
-using AppointmentRx.DataAccess.Repositories.Doctor.Chamber;
+using AppointmentRx.DataAccess.Repositories.Doctor.Appointments;
+using AppointmentRx.DataAccess.Repositories.Doctor.Chambers;
 using AppointmentRx.DataAccess.Repositories.Doctor.Profile;
 using AppointmentRx.DataAccess.Repositories.Patient.DoctorList;
 using AppointmentRx.DataAccess.Repositories.Patient.Profile;
@@ -41,6 +42,7 @@ namespace AppointmentRx.WebApi.DependencyInjection
             services.AddTransient<IDoctorProfileRepository, DoctorProfileRepository>();
             services.AddTransient<IUserRepository, UserRepository>();
             services.AddTransient<IChamberRepositoy, ChamberRepository>();
+            services.AddTransient<IAppointmentRepository, AppointmentRepository>();
             services.AddTransient<IDoctorInfoRepository, DoctorInfoRepository>();
             //Business
 
