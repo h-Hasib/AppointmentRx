@@ -10,11 +10,11 @@ namespace AppointmentRx.WebApi.Controllers.Doctor.Appointments
 {
     [Route("api/doctor/[controller]/[action]")]
     [ApiController]
-    public class AppointmentController : ControllerBase
+    public class AppointmentCommandController : ControllerBase
     {
         public IAppointmentRepository _appointmentRepository { get; set; }
 
-        public AppointmentController(IAppointmentRepository appointmentRepository)
+        public AppointmentCommandController(IAppointmentRepository appointmentRepository)
         {
             _appointmentRepository = appointmentRepository;
         }
