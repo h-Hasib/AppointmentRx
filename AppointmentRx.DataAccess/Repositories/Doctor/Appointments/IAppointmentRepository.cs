@@ -15,5 +15,8 @@ namespace AppointmentRx.DataAccess.Repositories.Doctor.Appointments
         public Task<HttpResponseModel> Update(int Id, DoctorAppointmentDto model);
         public Task<HttpResponseModel> Delete(int Id);
         public Task<HttpResponseModel> GetList();
+        public Task<HttpResponseModel> GetDetails(int AppointmentId);
+        public Task<HttpResponseModel> UpcomingAppointment();
+        public Task<HttpResponseModel> TodayAppointment();
     }
 }

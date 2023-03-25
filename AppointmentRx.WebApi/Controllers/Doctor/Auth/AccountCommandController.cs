@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace AppointmentRx.WebApi.Controllers.Doctor.Auth
 {
-    [Route("/api/auth/doctor/[action]")]
+    [Route("api/auth/doctor/[action]")]
     [ApiController]
     public class AccountCommandController : ControllerBase
     {

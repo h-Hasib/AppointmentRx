@@ -38,8 +38,8 @@ namespace AppointmentRx.DataAccess.Repositories.Doctor.Profile
 
         public async Task<HttpResponseModel> Update(/*int Id,*/ DoctorProfileDto model)
         {
-            //var doctorId = "881f6999-936f-48a4-abdd-5a1eaad3e16f";
-            var doctorId = "337fad3f-d2d4-4d3c-8b48-5544dc6c01b7";
+            var doctorId = "bd1d4d84-e4aa-466d-943a-b19cabad8308";
+            //var doctorId = "337fad3f-d2d4-4d3c-8b48-5544dc6c01b7";create by hasib
             var doctromanager = await _userManager.Users.FirstOrDefaultAsync(x => x.Id == doctorId);
             if (doctromanager == null)
             {
@@ -83,18 +83,6 @@ namespace AppointmentRx.DataAccess.Repositories.Doctor.Profile
         {
             var doctorId = "881f6999-936f-48a4-abdd-5a1eaad3e16f";
 
-            /*            var doctor = await _dbContext.DoctorProfiles.FindAsync(doctorId);
-                        if (doctor == null)
-                        {
-                            new HttpResponseModel(null, false, "Doctor Not Found");
-                        }
-
-                        var doctordetails = await _dbContext.PortalUsers.FindAsync(doctor);
-                        if (doctordetails == null)
-                        {
-                            new HttpResponseModel(null, false, "Doctor Not Found");
-                        }*/
-
             var doctromanager = await _userManager.Users.FirstOrDefaultAsync(x => x.Id == doctorId);
             if (doctromanager == null)
             {
@@ -104,8 +92,8 @@ namespace AppointmentRx.DataAccess.Repositories.Doctor.Profile
 
             var data = new DoctorProfileViewModel()
             {
-
-                FirstName= doctromanager.FirstName,
+                
+                FirstName = doctromanager.FirstName,
                 LastName= doctromanager.LastName,
                 RoleId=doctromanager.RoleId,
                 Department=doctor.Department,
@@ -128,7 +116,8 @@ namespace AppointmentRx.DataAccess.Repositories.Doctor.Profile
                            BMDCNumber = d.BMDCNumber,
                            Designation = d.Designation,
                            Department = d.Department,
-                           FirstName= p.FirstName, LastName= p.LastName,
+                           FirstName= p.UserName, 
+                           LastName= p.LastName,
                            RoleId=p.RoleId
                        }).ToList();
             return new HttpResponseModel(data);

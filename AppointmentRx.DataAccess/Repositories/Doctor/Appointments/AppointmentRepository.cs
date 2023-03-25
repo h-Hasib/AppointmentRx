@@ -3,6 +3,7 @@ using AppointmentRx.DataAccess.Repositories.Patient.Profile;
 using AppointmentRx.Framework;
 using AppointmentRx.Models;
 using AppointmentRx.Models.Dto;
+using AppointmentRx.Models.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
@@ -16,6 +17,8 @@ using System.Threading.Tasks;
 
 namespace AppointmentRx.DataAccess.Repositories.Doctor.Appointments
 {
+
+
     public class AppointmentRepository : IAppointmentRepository
     {
         private readonly PortalDbContext _dbContext;
@@ -33,16 +36,15 @@ namespace AppointmentRx.DataAccess.Repositories.Doctor.Appointments
         { 
             var doctorId = "bd1d4d84-e4aa-466d-943a-b19cabad8308";
 
-            var patientId = "02ed34fd-34c0-4062-9df9-18d8cf9bf333";
+            var patientId = "37d9b10c-137c-41bc-9998-8632dee320e2";
 
-            //var user = await _dbContext.PatientProfiles.FindAsync(patientId);
 
             var user = await _dbContext.PortalUsers.FirstOrDefaultAsync(x => x.Id == patientId);
 
 
             if (user == null)
             {
-                //PatientRegistrationDto dto = new PatientRegistrationDto();
+              
                 var userEntity = new PortalUser
                 {
                     UserName = model.PatientName,
@@ -72,6 +74,12 @@ namespace AppointmentRx.DataAccess.Repositories.Doctor.Appointments
                 appointment.PatientName = model.PatientName;
                 appointment.DoctorId = doctorId;
                 appointment.PatientId = NewPatientId.Id;
+                appointment.AppointmentTime= model.AppointmentTime;
+                appointment.CreatedAt = DateTime.Now;
+
+
+                await _dbContext.Appointments.AddAsync(appointment);
+                await _dbContext.SaveChangesAsync();
 
                 return new HttpResponseModel(model);
             }
@@ -97,16 +105,7 @@ namespace AppointmentRx.DataAccess.Repositories.Doctor.Appointments
                 return new HttpResponseModel(null, false, "Appointment Not Created");
             }
 
-            /*public async Task<HttpResponseModel> Create(Appointment appointment)
-            {
-                await _dbContext.Appointments.AddAsync(appointment);
 
-                if (await _dbContext.SaveChangesAsync() > 0)
-                {
-                    return new HttpResponseModel(appointment);
-                }
-                return new HttpResponseModel(null, false, "Failed");
-            }*/
         }
         public async Task<HttpResponseModel> Update(int Id, DoctorAppointmentDto model)
         {
@@ -149,13 +148,117 @@ namespace AppointmentRx.DataAccess.Repositories.Doctor.Appointments
 
         public async Task<HttpResponseModel> GetList()
         {
-            var List = await _dbContext.Appointments.ToListAsync();
+            var id = "bd1d4d84-e4aa-466d-943a-b19cabad8308";
 
-            return new HttpResponseModel(List);
+            var AppointRow= await _dbContext.Appointments.FirstOrDefaultAsync(x=>x.DoctorId == id);
+            if (AppointRow == null)
+            {
+                return new HttpResponseModel(null, false, "not found");
+            }
+
+            var data = (from ap in _dbContext.Appointments
+                       join c in _dbContext.Chambers on ap.ChamberId equals c.Id
+                       where ap.DoctorId==id
+                       select new DoctorAppointmentViewModelList()
+                       {
+                           Id = ap.Id,
+                           PatientName = ap.PatientName,
+                           PhoneNumber = ap.PhoneNumber,
+                           Age = ap.Age,
+                           SerialNumber = ap.SerialNumber,
+                           AppointmentTime = ap.AppointmentTime,
+                           CreatedAt = ap.CreatedAt,
+                       }).ToList();
+   
+            return new HttpResponseModel(data);
         }
 
+        public async Task<HttpResponseModel> GetDetails(int AppointmentId)
+        {
+            var appointdeails = await _dbContext.Appointments.FirstOrDefaultAsync(x=>x.Id == AppointmentId);
 
+            if (appointdeails == null)
+            {
+                return new HttpResponseModel(null, false, "not Found");
+            }
 
+            var data = (from ap in _dbContext.Appointments
+                        join c in _dbContext.Chambers on ap.ChamberId equals c.Id
+                        where ap.Id == AppointmentId
+                        select new DoctorAppointmentViewModelDetails()
+                        {
+                            Id = ap.Id,
+                            PatientName = ap.PatientName,
+                            PhoneNumber = ap.PhoneNumber,
+                            Age = ap.Age,
+                            SerialNumber = ap.SerialNumber,
+                            AppointmentTime = ap.AppointmentTime,
+                            CreatedAt = ap.CreatedAt,
 
+                            Name = c.Name,
+                            Fees = c.Fees,
+                            Address = c.Address,
+                            OpeningTime = c.OpeningTime,
+                            ClosingTime = c.ClosingTime,
+
+                        });
+
+            return new HttpResponseModel(data);
+
+        }
+
+        public async Task<HttpResponseModel> UpcomingAppointment()
+        {
+            var id = "bd1d4d84-e4aa-466d-943a-b19cabad8308";
+
+            var AppointRow = await _dbContext.Appointments.FirstOrDefaultAsync(x => x.DoctorId == id);
+            if (AppointRow == null)
+            {
+                return new HttpResponseModel(null, false, "not found");
+            }
+
+            var data = (from ap in _dbContext.Appointments
+                        join c in _dbContext.Chambers on ap.ChamberId equals c.Id 
+                        where ap.DoctorId == id && ap.AppointmentTime.Date > DateTime.Today
+                        select new DoctorAppointmentViewModelList()
+                        {
+                            Id = ap.Id,
+                            PatientName = ap.PatientName,
+                            PhoneNumber = ap.PhoneNumber,
+                            Age = ap.Age,
+                            SerialNumber = ap.SerialNumber,
+                            AppointmentTime = ap.AppointmentTime,
+                            CreatedAt = ap.CreatedAt,
+                        }).ToList();
+
+            return new HttpResponseModel(data);
+        }
+
+        public async Task<HttpResponseModel> TodayAppointment()
+        {
+            var id = "bd1d4d84-e4aa-466d-943a-b19cabad8308";
+
+            var AppointRow = await _dbContext.Appointments.FirstOrDefaultAsync(x => x.DoctorId == id);
+            if (AppointRow == null)
+            {
+                return new HttpResponseModel(null, false, "not found");
+            }
+
+            var data = (from ap in _dbContext.Appointments
+                        join c in _dbContext.Chambers on ap.ChamberId equals c.Id
+                        where ap.DoctorId == id && ap.AppointmentTime.Date == DateTime.Today
+                        select new DoctorAppointmentViewModelList()
+                        {
+                            Id = ap.Id,
+                            PatientName = ap.PatientName,
+                            PhoneNumber = ap.PhoneNumber,
+                            Age = ap.Age,
+                            SerialNumber = ap.SerialNumber,
+                            AppointmentTime = ap.AppointmentTime,
+                            CreatedAt = ap.CreatedAt,
+                        }).ToList();
+
+            return new HttpResponseModel(data);
+        }
     }
 }
