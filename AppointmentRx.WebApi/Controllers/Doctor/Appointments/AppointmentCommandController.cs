@@ -43,6 +43,7 @@ namespace AppointmentRx.WebApi.Controllers.Doctor.Appointments
             return Ok(data);
         }
 
+
         [HttpGet]
         [AllowAnonymous]
         public async Task<IActionResult> GetList()
@@ -50,5 +51,30 @@ namespace AppointmentRx.WebApi.Controllers.Doctor.Appointments
             var data = await _appointmentRepository.GetList();
             return Ok(data);
         }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public async Task<IActionResult> GetDetails(int AppointmentId)
+        {
+            var data = await _appointmentRepository.GetDetails(AppointmentId);
+            return Ok(data);
+        }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public async Task<IActionResult> UpcomingAppointment()
+        {
+            var data = await _appointmentRepository.UpcomingAppointment();
+            return Ok(data);
+        }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public async Task<IActionResult> TodayAppointment()
+        {
+            var data = await _appointmentRepository.TodayAppointment();
+            return Ok(data);
+        }
+
     }
 }

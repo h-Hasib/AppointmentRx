@@ -25,13 +25,6 @@ namespace AppointmentRx.WebApi.Controllers.Doctor.Profile
             return Ok(data);
         }
 
-        [HttpDelete]
-        [AllowAnonymous]
-        public async Task<IActionResult> Delete(int Id)
-        {
-            var data = await _doctorProfileRepository.Delete(Id);
-            return Ok(data);
-        }
 
         [HttpGet]
         [AllowAnonymous]
