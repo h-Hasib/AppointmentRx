@@ -4,6 +4,7 @@ using AppointmentRx.DataAccess.Repositories.Doctor.Appointments;
 using AppointmentRx.DataAccess.Repositories.Doctor.Chambers;
 using AppointmentRx.DataAccess.Repositories.Doctor.Profile;
 using AppointmentRx.DataAccess.Repositories.Patient.DoctorList;
+using AppointmentRx.DataAccess.Repositories.Patient.FavouriteDoctorRepo;
 using AppointmentRx.DataAccess.Repositories.Patient.Profile;
 using AppointmentRx.DataAccess.Repositories.User;
 using AppointmentRx.Framework;
@@ -44,6 +45,7 @@ namespace AppointmentRx.WebApi.DependencyInjection
             services.AddTransient<IChamberRepositoy, ChamberRepository>();
             services.AddTransient<IAppointmentRepository, AppointmentRepository>();
             services.AddTransient<IDoctorInfoRepository, DoctorInfoRepository>();
+            services.AddTransient<IFavouriteDoctorRepository, FavouriteDoctorRepository>();
             //Business
 
             //Fluent Validation Custom Error Model Interceptor

@@ -6,5 +6,6 @@ namespace AppointmentRx.DataAccess.Repositories.Patient.DoctorList
     {
         Task<List<DoctorListVM>> GetDoctorList();
         Task<DoctorDetailsVM?> GetDoctorDetails(string id);
+
     }
 }

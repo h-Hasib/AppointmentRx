@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace AppointmentRx.DataAccess.Entitites
 {
-    public class FavoriteDoctor
+    public class FavouriteDoctor
     {
         [Key]
         public int Id { get; set; }

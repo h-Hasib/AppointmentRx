@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace AppointmentRx.WebApi.Controllers.Patient.DoctorList
 {
-    [Route("patient/DoctorList")]
+    [Route("patient/DoctorInfo")]
     [ApiController]
     public class DoctorInfoController : BaseController
     {

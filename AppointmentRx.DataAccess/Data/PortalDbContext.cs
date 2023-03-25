@@ -12,7 +12,7 @@ namespace AppointmentRx.DataAccess.Entitites
         public DbSet<Schedule> Schedules { get; set; }
         public DbSet<Chamber> Chambers { get; set; }
         public DbSet<Appointment> Appointments { get; set; }
-        public DbSet<FavoriteDoctor> FavoriteDoctors { get; set; }
+        public DbSet<FavouriteDoctor> FavouriteDoctors { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder){}
     }
