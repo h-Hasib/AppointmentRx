@@ -38,7 +38,8 @@ namespace AppointmentRx.DataAccess.Repositories.Doctor.Profile
 
         public async Task<HttpResponseModel> Update(/*int Id,*/ DoctorProfileDto model)
         {
-            var doctorId = "881f6999-936f-48a4-abdd-5a1eaad3e16f";
+            //var doctorId = "881f6999-936f-48a4-abdd-5a1eaad3e16f";
+            var doctorId = "337fad3f-d2d4-4d3c-8b48-5544dc6c01b7";
             var doctromanager = await _userManager.Users.FirstOrDefaultAsync(x => x.Id == doctorId);
             if (doctromanager == null)
             {

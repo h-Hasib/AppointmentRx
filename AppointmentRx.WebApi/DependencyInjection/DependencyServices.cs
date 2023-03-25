@@ -3,7 +3,7 @@ using AppointmentRx.DataAccess.Entitites;
 using AppointmentRx.DataAccess.Repositories.Doctor.Appointments;
 using AppointmentRx.DataAccess.Repositories.Doctor.Chambers;
 using AppointmentRx.DataAccess.Repositories.Doctor.Profile;
-using AppointmentRx.DataAccess.Repositories.Patient.DoctorList;
+using AppointmentRx.DataAccess.Repositories.Patient.DoctorInfo;
 using AppointmentRx.DataAccess.Repositories.Patient.FavouriteDoctorRepo;
 using AppointmentRx.DataAccess.Repositories.Patient.Profile;
 using AppointmentRx.DataAccess.Repositories.User;

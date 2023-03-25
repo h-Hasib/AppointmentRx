@@ -8,11 +8,14 @@ namespace AppointmentRx.Models.ViewModels
 {
     public class DoctorChemberViewModel
     {
-
-        public int Id { get; set; }
+        public string? DoctorId { get; set; }
+        public int ChamberId { get; set; }
         public string Name { get; set; }
         public float? Fees { get; set; }
         public string? Address { get; set; }
+
+        public string? OpeningTime { get; set; }
+        public string? ClosingTime { get; set; }
 
         public bool? Saturday { get; set; }
         public bool? Sunday { get; set; }

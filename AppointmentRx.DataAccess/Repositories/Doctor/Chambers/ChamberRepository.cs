@@ -22,7 +22,8 @@ namespace AppointmentRx.DataAccess.Repositories.Doctor.Chambers
         
         public async Task<HttpResponseModel> Create(DoctorChamberScheduleDto model)
         {
-            var id = "bd1d4d84-e4aa-466d-943a-b19cabad8308";
+            //var id = "bd1d4d84-e4aa-466d-943a-b19cabad8308";
+            var id = "cf9f1a54-972a-47f3-9cb0-763206814c86";
 
             Chamber chambers = new Chamber();
 
@@ -116,7 +117,7 @@ namespace AppointmentRx.DataAccess.Repositories.Doctor.Chambers
                        join s in _dbContext.Schedules on c.Id equals s.ChamberId
                        select new DoctorChemberViewModel()
                        {
-                           Id = c.Id,
+                           ChamberId = c.Id,
                            Name = c.Name,
                            Address = c.Address,
                            Fees = c.Fees,

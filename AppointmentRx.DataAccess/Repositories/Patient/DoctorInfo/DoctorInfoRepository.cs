@@ -2,7 +2,7 @@
 using AppointmentRx.Models.ViewModels;
 using Microsoft.EntityFrameworkCore;
 
-namespace AppointmentRx.DataAccess.Repositories.Patient.DoctorList
+namespace AppointmentRx.DataAccess.Repositories.Patient.DoctorInfo
 {
     public class DoctorInfoRepository : IDoctorInfoRepository
     {
@@ -51,6 +51,30 @@ namespace AppointmentRx.DataAccess.Repositories.Patient.DoctorList
                 }
             ).FirstOrDefaultAsync();
         }
-
+        public async Task<List<DoctorChemberViewModel>?> DoctorChamberList(string doctorId)
+        {
+            return await (
+                from c in _db.Chambers
+                join s in _db.Schedules on c.Id equals s.ChamberId
+                where c.DoctorId == doctorId
+                select new DoctorChemberViewModel
+                {
+                    DoctorId = c.DoctorId,
+                    ChamberId = s.Id,
+                    Name = c.Name,
+                    Address = c.Address,
+                    Fees = c.Fees,
+                    OpeningTime = c.OpeningTime,
+                    ClosingTime = c.ClosingTime,
+                    Saturday = s.Saturday,
+                    Sunday = s.Sunday,
+                    Monday = s.Monday,
+                    Tuesday = s.Tuesday,
+                    Wednesday = s.Wednesday,
+                    Thursday = s.Thursday,
+                    Friday = s.Friday,
+                }
+            ).ToListAsync();
+        }
     }
 }

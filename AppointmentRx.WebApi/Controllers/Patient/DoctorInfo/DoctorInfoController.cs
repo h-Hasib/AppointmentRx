@@ -1,5 +1,5 @@
 ﻿using AppointmentRx.DataAccess.Entitites;
-using AppointmentRx.DataAccess.Repositories.Patient.DoctorList;
+using AppointmentRx.DataAccess.Repositories.Patient.DoctorInfo;
 using AppointmentRx.Models;
 using AppointmentRx.Models.ViewModels;
 using Microsoft.AspNetCore.Authorization;
@@ -42,6 +42,16 @@ namespace AppointmentRx.WebApi.Controllers.Patient.DoctorList
             if(doctorDetails == null)
                 return NotFound(new HttpResponseModel(data: null, success: false, message: "no doctor found."));
             return Ok(new HttpResponseModel(data: doctorDetails, success: true, message: "doctor details."));
+        }
+        [HttpGet("chamberlist-details")]
+        [AllowAnonymous]
+        public async Task<IActionResult> ChamberListDetails(string doctorId)
+        {
+            //var doctorId = "cf9f1a54-972a-47f3-9cb0-763206814c86";
+            var chamberListDetails = await _doctorInfoRepository.DoctorChamberList(doctorId);
+            if (chamberListDetails == null)
+                return NotFound(new HttpResponseModel(data: null, success: false, message: "no chamber found."));
+            return Ok(new HttpResponseModel(data: chamberListDetails, success: true, message: "chamber list details."));
         }
     }
 }
